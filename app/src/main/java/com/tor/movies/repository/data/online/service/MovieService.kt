@@ -1,7 +1,7 @@
-package com.tor.movies.repository.service
+package com.tor.movies.repository.data.online.service
 
 import com.tor.common.network.ConfigNetwork
-import com.tor.movies.repository.model.ResponseMovie
+import com.tor.movies.repository.data.online.model.ResponseMovie
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

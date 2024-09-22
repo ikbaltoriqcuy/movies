@@ -41,8 +41,6 @@ fun EmptyMovies() {
                 text = "Data tidak tersedia",
                 style = AppTypography.titleLarge
             )
-
-
         }
     }
 }

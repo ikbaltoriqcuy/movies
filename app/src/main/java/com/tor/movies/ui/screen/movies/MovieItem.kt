@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.tor.movies.repository.model.Movie
+import com.tor.movies.repository.data.online.model.Movie
 import com.tor.movies.ui.components.RoundImage
 import com.tor.movies.ui.theme.AppTypography
 import com.tor.movies.ui.theme.Dimens

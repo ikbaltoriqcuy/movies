@@ -1,7 +1,7 @@
-package com.tor.movies.repository.domain.usecase
+package com.tor.movies.domain.usecase
 
-import com.tor.movies.repository.model.ResponseMovie
-import com.tor.movies.repository.remote.MovieRepo
+import com.tor.movies.repository.data.online.model.ResponseMovie
+import com.tor.movies.repository.data.online.remote.MovieRepo
 import com.tor.common.network.Result
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

@@ -1,9 +1,10 @@
 package com.tor.movies.ui.screen.movies
 
 import com.tor.common.base.BaseViewModel
-import com.tor.movies.repository.domain.usecase.GetMoviesUseCase
-import com.tor.movies.repository.model.Movie
+import com.tor.movies.domain.usecase.GetMoviesUseCase
+import com.tor.movies.repository.data.online.model.Movie
 import com.tor.common.network.Result
+import com.tor.movies.domain.usecase.MoviesLocalUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,8 @@ Created by ikbaltoriq on 22,September,2024
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val getMoviesUseCase: GetMoviesUseCase
+    private val getMoviesUseCase: GetMoviesUseCase,
+    private val moviesLocalUseCase: MoviesLocalUseCase
 ) : BaseViewModel() {
 
     init {

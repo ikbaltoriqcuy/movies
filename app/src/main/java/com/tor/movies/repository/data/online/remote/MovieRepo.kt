@@ -1,6 +1,6 @@
-package com.tor.movies.repository.remote
+package com.tor.movies.repository.data.online.remote
 
-import com.tor.movies.repository.model.ResponseMovie
+import com.tor.movies.repository.data.online.model.ResponseMovie
 import com.tor.common.network.Result
 
 

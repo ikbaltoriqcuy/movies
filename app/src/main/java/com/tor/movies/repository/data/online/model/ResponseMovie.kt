@@ -1,4 +1,4 @@
-package com.tor.movies.repository.model
+package com.tor.movies.repository.data.online.model
 
 import com.google.gson.annotations.SerializedName
 

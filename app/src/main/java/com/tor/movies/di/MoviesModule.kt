@@ -4,9 +4,9 @@ package com.tor.movies.di
 Created by ikbaltoriq on 22,September,2024
  **/
 
-import com.tor.movies.repository.domain.usecase.GetMoviesUseCase
-import com.tor.movies.repository.remote.MoviesRepoImpl
-import com.tor.movies.repository.service.MovieService
+import com.tor.movies.domain.usecase.GetMoviesUseCase
+import com.tor.movies.repository.data.online.remote.MoviesRepoImpl
+import com.tor.movies.repository.data.online.service.MovieService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
