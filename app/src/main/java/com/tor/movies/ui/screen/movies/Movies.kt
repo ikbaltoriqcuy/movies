@@ -23,10 +23,12 @@ Created by ikbaltoriq on 20,September,2024
 @Composable
 fun Movies(moviesViewModel: MoviesViewModel = hiltViewModel()) {
     val movies = moviesViewModel.movies.collectAsState(initial = emptyList())
+    val isLoading = moviesViewModel.isLoading.collectAsState(initial = true)
     val isMoviesEmpty = moviesViewModel.isMoviesEmpty.collectAsState(initial = true)
     Column(modifier = Modifier.padding(Dimens.Medium)) {
         Search()
         when {
+            isLoading.value -> ShimmerMovies()
             isMoviesEmpty.value -> EmptyMovies()
             else -> {
                 LazyColumn(

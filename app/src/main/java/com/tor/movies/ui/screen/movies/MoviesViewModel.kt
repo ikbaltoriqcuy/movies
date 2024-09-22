@@ -27,7 +27,6 @@ class MoviesViewModel @Inject constructor(
     private var _page = 1
     val page: Int get() = _page
 
-
     private val _isMoviesEmpty = MutableStateFlow(false)
     val isMoviesEmpty: Flow<Boolean> get() = _isMoviesEmpty.asStateFlow()
 
