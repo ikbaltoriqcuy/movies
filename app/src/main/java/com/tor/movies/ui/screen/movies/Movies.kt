@@ -23,15 +23,25 @@ Created by ikbaltoriq on 20,September,2024
 @Composable
 fun Movies(moviesViewModel: MoviesViewModel = hiltViewModel()) {
     val movies = moviesViewModel.movies.collectAsState(initial = emptyList())
+    val isMoviesEmpty = moviesViewModel.isMoviesEmpty.collectAsState(initial = true)
     Column(modifier = Modifier.padding(Dimens.Medium)) {
         Search()
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(Dimens.Small),
-            contentPadding = PaddingValues(start = Dimens.Medium, end = Dimens.Medium, top = Dimens.Medium)
-        ) {
-            items(movies.value) { item ->
-                MovieItem(movie = item)
+        when {
+            isMoviesEmpty.value -> EmptyMovies()
+            else -> {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(Dimens.Small),
+                    contentPadding = PaddingValues(
+                        start = Dimens.Medium,
+                        end = Dimens.Medium,
+                        top = Dimens.Medium
+                    )
+                ) {
+                    items(movies.value) { item ->
+                        MovieItem(movie = item)
+                    }
+                }
             }
         }
 

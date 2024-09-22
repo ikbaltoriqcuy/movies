@@ -27,8 +27,13 @@ class MoviesViewModel @Inject constructor(
     private var _page = 1
     val page: Int get() = _page
 
+
+    private val _isMoviesEmpty = MutableStateFlow(false)
+    val isMoviesEmpty: Flow<Boolean> get() = _isMoviesEmpty.asStateFlow()
+
+
     private val _movies = MutableStateFlow<List<Movie>>(emptyList())
-    val movies: Flow<List<Movie>> = _movies.asStateFlow()
+    val movies: Flow<List<Movie>> get() = _movies.asStateFlow()
 
     fun getDataPeople(title: String = DEFAULT_TITLE) {
         setIsLoading(true)
@@ -38,14 +43,15 @@ class MoviesViewModel @Inject constructor(
                      when (result) {
                          is Result.Success -> {
                              _movies.emit(result.data.search)
+                             _isMoviesEmpty.emit(result.data.search.isEmpty())
                          }
                          is Result.Error -> {
-                             errorMessage.value = result.exception.message.orEmpty()
+                             _isMoviesEmpty.emit(true)
                          }
                      }
                  }
             } catch (e: Exception) {
-                errorMessage.value = e.message.orEmpty()
+                _isMoviesEmpty.emit(true)
             } finally {
                 setIsLoading(false)
             }
