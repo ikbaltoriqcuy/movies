@@ -59,12 +59,14 @@ class MoviesViewModel @Inject constructor(
                          }
                          is Result.Error -> {
                              _isMoviesEmpty.emit(true)
+                             setErrorMessage(result.exception.message ?: "Undefined Problem")
                          }
                      }
                  }
 
             } catch (e: Exception) {
                 _isMoviesEmpty.emit(_movies.value.isEmpty())
+                setErrorMessage(e.message ?: "Undefined Problem")
             } finally {
                 _isShimmerShow.emit(false)
             }

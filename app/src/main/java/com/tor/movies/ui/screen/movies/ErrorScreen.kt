@@ -26,7 +26,7 @@ Created by ikbaltoriq on 22,September,2024
 
 @Preview(showSystemUi = true, device = Devices.PIXEL)
 @Composable
-fun EmptyMovies() {
+fun ErrorScreen(errorMessage: String = "Error", onRetry: ()-> Unit = {}) {
     Box(modifier = Modifier.fillMaxSize().background(Color.White), contentAlignment = Alignment.Center) {
         Column(
             modifier = Modifier.padding(Dimens.Large),
@@ -38,11 +38,15 @@ fun EmptyMovies() {
             )
             Text(
                 modifier = Modifier.padding(Dimens.Medium),
-                text = "Data tidak tersedia",
+                text = errorMessage,
                 style = AppTypography.titleLarge
             )
 
-
+            Button(modifier = Modifier.fillMaxWidth(), onClick = { onRetry.invoke() }) {
+                Text(text = "Retry...", style = AppTypography.bodyLarge)
+            }
         }
+
+
     }
 }

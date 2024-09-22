@@ -40,12 +40,14 @@ fun Movies(moviesViewModel: MoviesViewModel = hiltViewModel()) {
     val isShimmerShow = moviesViewModel.isShimmerShow.collectAsState(initial = true)
     val isMoviesEmpty = moviesViewModel.isMoviesEmpty.collectAsState(initial = true)
     val isOnSearch = moviesViewModel.isOnSearch.collectAsState(initial = true)
+    val errorMessage = moviesViewModel.errorMessage.collectAsState(initial = "")
 
     Column(modifier = Modifier.padding(Dimens.Medium)) {
         Spacer(modifier = Modifier.height(60.dp))
         Search{ value ->  moviesViewModel.search(value) }
         when {
             isShimmerShow.value -> ShimmerMovies()
+            errorMessage.value.isNotEmpty() -> ErrorScreen(errorMessage = errorMessage.value) { moviesViewModel.getMovies() }
             isMoviesEmpty.value -> EmptyMovies()
             else -> {
                 LazyColumn(
