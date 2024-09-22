@@ -17,12 +17,13 @@ Created by ikbaltoriq on 20,September,2024
 
 @Preview
 @Composable
-fun Search() {
+fun Search(onSearch: (String) -> Unit = {}) {
     var value by remember { mutableStateOf("") }
     OutlinedTextField(
         value = value,
         onValueChange = { newText ->
             value = newText
+            onSearch(newText)
         },
         placeholder = {
             Text(text = "Masukan Judul Film")

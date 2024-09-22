@@ -36,12 +36,14 @@ fun Movies(moviesViewModel: MoviesViewModel = hiltViewModel()) {
     val lazyListState = rememberLazyListState()
 
     val movies = moviesViewModel.movies.collectAsState(initial = emptyList())
+    val moviesFiltered = moviesViewModel.filteredMovies.collectAsState(initial = emptyList())
     val isShimmerShow = moviesViewModel.isShimmerShow.collectAsState(initial = true)
     val isMoviesEmpty = moviesViewModel.isMoviesEmpty.collectAsState(initial = true)
+    val isOnSearch = moviesViewModel.isOnSearch.collectAsState(initial = true)
 
     Column(modifier = Modifier.padding(Dimens.Medium)) {
         Spacer(modifier = Modifier.height(60.dp))
-        Search()
+        Search{ value ->  moviesViewModel.search(value) }
         when {
             isShimmerShow.value -> ShimmerMovies()
             isMoviesEmpty.value -> EmptyMovies()
@@ -56,12 +58,14 @@ fun Movies(moviesViewModel: MoviesViewModel = hiltViewModel()) {
                         top = Dimens.Medium
                     )
                 ) {
-                    items(movies.value) { item ->
+                    val currentMovies = if (isOnSearch.value) moviesFiltered else movies
+                    items(currentMovies.value) { item ->
                         MovieItem(movie = item)
                     }
 
                     item {
-                        CircularLoadingIndicator()
+                        if (!isOnSearch.value)
+                            CircularLoadingIndicator()
                     }
 
                 }

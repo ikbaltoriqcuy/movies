@@ -1,6 +1,5 @@
 package com.tor.movies.ui.screen.movies
 
-import androidx.compose.runtime.collectAsState
 import com.tor.common.base.BaseViewModel
 import com.tor.movies.repository.domain.usecase.GetMoviesUseCase
 import com.tor.movies.repository.model.Movie
@@ -35,8 +34,14 @@ class MoviesViewModel @Inject constructor(
     private val _isMoviesEmpty = MutableStateFlow(false)
     val isMoviesEmpty: Flow<Boolean> get() = _isMoviesEmpty.asStateFlow()
 
+    private val _isOnSearch = MutableStateFlow(false)
+    val isOnSearch: Flow<Boolean> get() = _isOnSearch.asStateFlow()
+
     private val _movies = MutableStateFlow<List<Movie>>(emptyList())
     val movies: Flow<List<Movie>> get() = _movies.asStateFlow()
+
+    private val _filteredMovies = MutableStateFlow<List<Movie>>(emptyList())
+    val filteredMovies: Flow<List<Movie>> get() = _filteredMovies.asStateFlow()
 
     fun getMovies(title: String = DEFAULT_TITLE) {
         coroutineScope.launch {
@@ -66,7 +71,19 @@ class MoviesViewModel @Inject constructor(
         }
     }
 
+    fun search(value: String) {
+        coroutineScope.launch {
+            _isOnSearch.emit(value.isNotEmpty())
 
+            _filteredMovies.emit(
+                _movies.value.filter { movie ->
+                    movie.title.contains(value, ignoreCase = true)
+                }
+            )
+
+            _isMoviesEmpty.emit(_filteredMovies.value.isEmpty() && value.isNotEmpty())
+        }
+    }
 
     fun incrementPage() {
         _page = page + 1

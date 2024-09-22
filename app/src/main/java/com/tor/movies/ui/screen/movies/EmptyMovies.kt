@@ -39,9 +39,9 @@ fun EmptyMovies() {
                 text = "Data tidak tersedia",
                 style = AppTypography.titleLarge
             )
-            Button(modifier = Modifier.fillMaxWidth(), onClick = { }) {
-                Text(text = "Retry...", style = AppTypography.bodyLarge)
-            }
+//            Button(modifier = Modifier.fillMaxWidth(), onClick = { }) {
+//                Text(text = "Retry...", style = AppTypography.bodyLarge)
+//            }
         }
     }
 }
