@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.dagger.hilt.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -14,8 +16,15 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    android.buildFeatures.buildConfig = true
+
     buildTypes {
+        val baseUrl = project.findProperty("BASE_URL") as String?
+        debug {
+            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+        }
         release {
+            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -37,6 +46,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
