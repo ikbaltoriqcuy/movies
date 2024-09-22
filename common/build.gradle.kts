@@ -20,11 +20,14 @@ android {
 
     buildTypes {
         val baseUrl = project.findProperty("BASE_URL") as String?
+        val apiKey = project.findProperty("API_KEY") as String?
         debug {
             buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+            buildConfigField("String", "API_KEY", "\"$apiKey\"")
         }
         release {
             buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+            buildConfigField("String", "API_KEY", "\"$apiKey\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

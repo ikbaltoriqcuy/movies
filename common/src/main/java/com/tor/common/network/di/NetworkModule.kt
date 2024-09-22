@@ -1,6 +1,7 @@
 package com.tor.common.network.di
 
 import com.tor.common.BuildConfig
+import com.tor.common.network.ConfigNetwork
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +19,6 @@ Created by ikbaltoriq on 28,August,2024
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    const val BASE_URL = BuildConfig.BASE_URL
 
     @Singleton
     @Provides
@@ -42,7 +42,7 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit  {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
+            .baseUrl(ConfigNetwork.BASE_URL)
             .client(okHttpClient)
             .build()
     }

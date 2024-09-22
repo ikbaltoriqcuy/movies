@@ -15,6 +15,7 @@ okhttp = "4.9.3"
 gson = "2.10.1"
 appcompat = "1.7.0"
 material = "1.12.0"
+hilt-navigation-compose = "1.2.0"
 
 
 [libraries]
@@ -42,6 +43,7 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 
 
 [plugins]
