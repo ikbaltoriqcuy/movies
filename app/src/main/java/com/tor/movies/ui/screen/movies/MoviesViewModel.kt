@@ -22,15 +22,11 @@ class MoviesViewModel @Inject constructor(
     private val moviesLocalUseCase: MoviesLocalUseCase
 ) : BaseViewModel() {
 
-    init {
-        getMovies()
-    }
-
     private var _page = 1
     val page: Int get() = _page
 
 
-    private val _isShimmerShow = MutableStateFlow(true)
+    private val _isShimmerShow = MutableStateFlow(false)
     val isShimmerShow: Flow<Boolean> get() = _isShimmerShow.asStateFlow()
 
     private val _isMoviesEmpty = MutableStateFlow(false)
@@ -45,6 +41,26 @@ class MoviesViewModel @Inject constructor(
     private val _filteredMovies = MutableStateFlow<List<Movie>>(emptyList())
     val filteredMovies: Flow<List<Movie>> get() = _filteredMovies.asStateFlow()
 
+
+    fun initialize(isInternetConnected: Boolean) {
+        coroutineScope.launch {
+            moviesLocalUseCase.getMovies().collect { result ->
+                if (!isInternetConnected) {
+                    if (result.isNotEmpty()) {
+                        _movies.emit(result)
+                    } else {
+                        setErrorMessage("Tidak ada koneksi internet")
+                    }
+                }
+
+                if (isInternetConnected) {
+                    moviesLocalUseCase.deleteMovies()
+                    getMovies()
+                }
+            }
+        }
+    }
+
     fun getMovies(title: String = DEFAULT_TITLE) {
         coroutineScope.launch {
             try {
@@ -58,6 +74,8 @@ class MoviesViewModel @Inject constructor(
                              val newData = _movies.value + result.data.search
                              _movies.emit(newData)
                              _isMoviesEmpty.emit(newData.isEmpty())
+
+                             moviesLocalUseCase.insertMovies(result.data.search)
                          }
                          is Result.Error -> {
                              _isMoviesEmpty.emit(true)

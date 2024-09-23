@@ -16,7 +16,7 @@ gson = "2.10.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 hilt-navigation-compose = "1.2.0"
-room = "2.5.2"
+room = "2.6.1"
 
 
 [libraries]

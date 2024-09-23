@@ -9,7 +9,7 @@ import com.tor.movies.repository.data.online.model.Movie
 Created by ikbaltoriq on 23,September,2024
  **/
 
-@Database(entities = [Movie::class], version = 1)
+@Database(entities = [MovieVO::class], version = 1)
 abstract class MovieDatabase: RoomDatabase() {
     abstract fun movieDao(): MovieDao
 }

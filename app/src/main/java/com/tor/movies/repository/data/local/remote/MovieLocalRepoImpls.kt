@@ -1,5 +1,6 @@
 package com.tor.movies.repository.data.local.remote
 
+import com.tor.movies.repository.data.local.model.MovieVO
 import com.tor.movies.repository.data.local.service.MovieDao
 import com.tor.movies.repository.data.online.model.Movie
 import javax.inject.Inject
@@ -9,7 +10,7 @@ Created by ikbaltoriq on 23,September,2024
  **/
 class MovieLocalRepoImpls @Inject constructor(private val movieDao: MovieDao): MovieLocalRepo {
 
-    override suspend fun insertMovies(movies: List<Movie>): Int {
+    override suspend fun insertMovies(movies: List<MovieVO>): List<Long> {
         return movieDao.insertMovies(movies)
     }
 
@@ -17,7 +18,7 @@ class MovieLocalRepoImpls @Inject constructor(private val movieDao: MovieDao): M
         return movieDao.deleteMovie()
     }
 
-    override suspend fun getAllMovies(): List<Movie> {
+    override suspend fun getAllMovies(): List<MovieVO> {
         return movieDao.getAllMovies()
     }
 }
